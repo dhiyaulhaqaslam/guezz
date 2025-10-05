@@ -1,52 +1,86 @@
 const levels = [
    {
-      title: "Level 1 - Easy (90s)",
+      title: "Level 1 - Easy (1990s)",
       bands: [
          {
-            clue: "This grunge band from Seattle took the world by storm with their hit 'Smells Like Teen Spirit'.",
+            clue: "This Seattle grunge band changed rock forever with their 1991 hit 'Smells Like Teen Spirit'.",
             answer: "Nirvana",
          },
          {
-            clue: "This American rock band's frontman is known for his unique voice and hits like 'November Rain' and 'Sweet Child O' Mine'.",
-            answer: "Guns N' Roses",
+            clue: "This British band led by Liam and Noel Gallagher became Britpop icons with 'Wonderwall'.",
+            answer: "Oasis",
          },
          {
-            clue: "This British band's hit 'Wonderwall' became an anthem of the 90s, thanks to their unique sound and emotional lyrics.",
-            answer: "Oasis",
+            clue: "This American rock band fronted by Billy Corgan released the hit '1979'.",
+            answer: "The Smashing Pumpkins",
          },
       ],
    },
    {
-      title: "Level 2 - Medium (80s)",
+      title: "Level 2 - Medium (1980s)",
       bands: [
          {
-            clue: "Fronted by Freddie Mercury, this British rock band is known for their operatic rock hit 'Bohemian Rhapsody'.",
-            answer: "Queen",
-         },
-         {
-            clue: "Fronted by Bono, this Irish rock band is famous for their politically charged songs like 'With or Without You' and 'Beautiful Day'.",
+            clue: "This Irish band, fronted by Bono, is known for songs like 'With or Without You' and 'Sunday Bloody Sunday'.",
             answer: "U2",
          },
          {
-            clue: "This American band's frontman is known for his unique style and hits like 'Purple Rain' and 'When Doves Cry'.",
-            answer: "Prince & The Revolution",
+            clue: "This British new wave band had a hit with 'Hungry Like the Wolf'.",
+            answer: "Duran Duran",
+         },
+         {
+            clue: "This American band, led by Axl Rose, rocked the world with 'Sweet Child O' Mine'.",
+            answer: "Guns N' Roses",
          },
       ],
    },
    {
-      title: "Level 3 - Hard (60s-70s)",
+      title: "Level 3 - Hard (1970s)",
       bands: [
          {
-            clue: "Fronted by Mick Jagger and Keith Richards, this British band is known for their hit 'Paint It Black' and their influence on the Rolling Stones sound.",
+            clue: "This British rock band is famous for 'Stairway to Heaven' and powerful guitar riffs by Jimmy Page.",
+            answer: "Led Zeppelin",
+         },
+         {
+            clue: "This Australian hard rock band is known for 'Back in Black' and 'Highway to Hell'.",
+            answer: "AC/DC",
+         },
+         {
+            clue: "This British progressive rock band is behind 'Comfortably Numb' and 'Another Brick in the Wall'.",
+            answer: "Pink Floyd",
+         },
+      ],
+   },
+   {
+      title: "Level 4 - Very Hard (Late 1960s - 1970s)",
+      bands: [
+         {
+            clue: "This British band led by Freddie Mercury became legendary with 'Bohemian Rhapsody'.",
+            answer: "Queen",
+         },
+         {
+            clue: "Known for their hits 'Hotel California' and 'Take It Easy', this American band defined 70s soft rock.",
+            answer: "Eagles",
+         },
+         {
+            clue: "This British band, led by Roger Daltrey, became famous for 'Baba O'Riley' and smashing guitars on stage.",
+            answer: "The Who",
+         },
+      ],
+   },
+   {
+      title: "Level 5 - Expert (1960s)",
+      bands: [
+         {
+            clue: "This British band, featuring John, Paul, George, and Ringo, revolutionized popular music with hits like 'Hey Jude'.",
+            answer: "The Beatles",
+         },
+         {
+            clue: "This British rock band, fronted by Mick Jagger, became known for 'Paint It Black' and 'Satisfaction'.",
             answer: "The Rolling Stones",
          },
          {
-            clue: "This American band is known for their hit 'Wonderwall' and their role in the Britpop movement of the 90s.",
-            answer: "Oasis",
-         },
-         {
-            clue: "This British band is known for their hit 'Smells Like Teen Spirit' and their impact on the grunge movement of the 90s.",
-            answer: "Nirvana",
+            clue: "This American band, led by Jim Morrison, became known for their dark lyrics and songs like 'Light My Fire'.",
+            answer: "The Doors",
          },
       ],
    },
