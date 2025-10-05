@@ -101,6 +101,14 @@ const levelTitleEl = document.getElementById("level-title");
 nextBtn.addEventListener("click", nextQuestion);
 submitBtn.addEventListener("click", checkAnswer);
 
+// 🔹 NEW FEATURE: tekan Enter untuk submit jawaban
+answerEl.addEventListener("keydown", (e) => {
+   if (e.key === "Enter" && !submitBtn.disabled) {
+      e.preventDefault();
+      checkAnswer();
+   }
+});
+
 function startLevel() {
    const currentLevel = levels[levelIndex];
    levelTitleEl.textContent = currentLevel.title;
