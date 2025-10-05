@@ -111,6 +111,17 @@ function startLevel() {
 function nextQuestion() {
    const currentLevel = levels[levelIndex];
 
+   // Jika tombol restart ditekan
+   if (nextBtn.textContent === "Restart") {
+      nextBtn.textContent = "Next";
+      levelIndex = 0;
+      score = 0;
+      scoreEl.textContent = "Score: 0";
+      startLevel();
+      return;
+   }
+
+   // Cek apakah semua pertanyaan di level selesai
    if (currentIndex >= currentLevel.bands.length) {
       levelIndex++;
       if (levelIndex >= levels.length) {
@@ -118,11 +129,9 @@ function nextQuestion() {
          answerEl.disabled = true;
          submitBtn.disabled = true;
          nextBtn.textContent = "Restart";
-         levelIndex = 0;
-         score = 0;
          return;
       }
-      alert(`Level Complete! Moving to ${levels[levelIndex].title}`);
+      alert(`✅ Level Complete! Moving to ${levels[levelIndex].title}`);
       startLevel();
       return;
    }
