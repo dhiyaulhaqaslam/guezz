@@ -1,52 +1,93 @@
 const levels = [
    {
-      title: "Level 1 - Easy (1990s)",
+      title: "Level 1 - 2000s (Modern Rock Revival)",
+      theme: "linear-gradient(135deg, #2e3192, #1bffff)", // soft blue
+      icon: "🎧",
       bands: [
          {
-            clue: "This Seattle grunge band changed rock forever with their 1991 hit 'Smells Like Teen Spirit'.",
+            clue: "British band known for 'Yellow' and 'Viva La Vida'.",
+            answer: "Coldplay",
+         },
+         {
+            clue: "American band famous for 'In the End' and 'Numb'.",
+            answer: "Linkin Park",
+         },
+         {
+            clue: "Pop-punk legends known for 'All the Small Things'.",
+            answer: "Blink-182",
+         },
+      ],
+   },
+   {
+      title: "Level 2 - 1990s (Grunge & Britpop Era)",
+      theme: "linear-gradient(135deg, #141e30, #243b55)", // darker navy
+      icon: "🎸",
+      bands: [
+         {
+            clue: "Seattle band with hit 'Smells Like Teen Spirit'.",
             answer: "Nirvana",
          },
          {
-            clue: "This British band led by Liam and Noel Gallagher became Britpop icons with 'Wonderwall'.",
+            clue: "British band with 'Wonderwall' and 'Don't Look Back in Anger'.",
             answer: "Oasis",
          },
          {
-            clue: "This American rock band fronted by Billy Corgan released the hit '1979'.",
+            clue: "American alternative band known for '1979'.",
             answer: "The Smashing Pumpkins",
          },
       ],
    },
    {
-      title: "Level 2 - Medium (1980s)",
+      title: "Level 3 - 1980s (Synth & Arena Rock)",
+      theme: "linear-gradient(135deg, #ff9966, #ff5e62)", // warm orange-pink
+      icon: "🎹",
       bands: [
          {
-            clue: "This Irish band, fronted by Bono, is known for 'With or Without You'.",
+            clue: "Irish rock band led by Bono, famous for 'With or Without You'.",
             answer: "U2",
          },
          {
-            clue: "This British new wave band had a hit with 'Hungry Like the Wolf'.",
+            clue: "British band with hit 'Hungry Like the Wolf'.",
             answer: "Duran Duran",
          },
          {
-            clue: "This American band, led by Axl Rose, rocked the world with 'Sweet Child O' Mine'.",
-            answer: "Guns N' Roses",
+            clue: "Band known for 'Sweet Child O’ Mine'.",
+            answer: "Guns N’ Roses",
          },
       ],
    },
    {
-      title: "Level 3 - Hard (2000s)",
+      title: "Level 4 - 1970s (Classic Rock)",
+      theme: "linear-gradient(135deg, #f7971e, #ffd200)", // vintage yellow-gold
+      icon: "🎤",
       bands: [
          {
-            clue: "This American rock band fronted by Chris Martin gained worldwide fame with 'Yellow'.",
-            answer: "Coldplay",
+            clue: "British band whose guitarist is Jimmy Page.",
+            answer: "Led Zeppelin",
+         },
+         { clue: "Rock band known for 'Bohemian Rhapsody'.", answer: "Queen" },
+         {
+            clue: "Australian band famous for 'Highway to Hell'.",
+            answer: "AC/DC",
+         },
+      ],
+   },
+   {
+      title: "Level 5 - 1960s (The Legends)",
+      theme: "linear-gradient(135deg, #8e2de2, #4a00e0)", // royal purple
+      icon: "🎷",
+      bands: [
+         {
+            clue: "British group known for 'Hey Jude' and 'Let It Be'.",
+            answer: "The Beatles",
          },
          {
-            clue: "This pop-punk band from California made hits like 'All the Small Things'.",
-            answer: "Blink-182",
+            clue: "American band known for 'Light My Fire'.",
+            answer: "The Doors",
          },
          {
-            clue: "This American band won multiple Grammys for their debut album 'Hybrid Theory'.",
-            answer: "Linkin Park",
+            clue: "Rock pioneers known for 'Satisfaction'.",
+            answer: "The Rolling Stones",
          },
       ],
    },
@@ -64,11 +105,9 @@ const lobby = document.getElementById("lobby");
 const gameBox = document.getElementById("game-box");
 const leaderboard = document.getElementById("leaderboard");
 const leaderboardList = document.getElementById("leaderboard-list");
-
 const startBtn = document.getElementById("start-btn");
 const showLeaderboardBtn = document.getElementById("show-leaderboard");
 const backBtn = document.getElementById("back-btn");
-
 const clueEl = document.getElementById("clue");
 const answerEl = document.getElementById("answer");
 const submitBtn = document.getElementById("submit-btn");
@@ -82,7 +121,7 @@ const timerEl = document.getElementById("timer");
 startBtn.addEventListener("click", () => {
    const nameInput = document.getElementById("player-name").value.trim();
    if (!nameInput) {
-      alert("Please enter your name first!");
+      alert("Masukkan nama dulu ya!");
       return;
    }
    playerName = nameInput;
@@ -112,10 +151,9 @@ function startTimer() {
    clearInterval(timerInterval);
    timerInterval = setInterval(() => {
       timer++;
-      timerEl.textContent = `Time: ${timer}s`;
+      timerEl.textContent = `⏱️ ${timer}s`;
    }, 1000);
 }
-
 function stopTimer() {
    clearInterval(timerInterval);
 }
@@ -126,14 +164,12 @@ function showLobby() {
    gameBox.style.display = "none";
    lobby.style.display = "block";
 }
-
 function showGame() {
    lobby.style.display = "none";
    leaderboard.style.display = "none";
    gameBox.style.display = "block";
    resetGame();
 }
-
 function showLeaderboard() {
    lobby.style.display = "none";
    gameBox.style.display = "none";
@@ -153,7 +189,8 @@ function resetGame() {
 
 function startLevel() {
    const currentLevel = levels[levelIndex];
-   levelTitleEl.textContent = currentLevel.title;
+   document.body.style.background = currentLevel.theme;
+   levelTitleEl.textContent = `${currentLevel.icon} ${currentLevel.title}`;
    currentIndex = 0;
    nextQuestion();
 }
@@ -167,7 +204,7 @@ function nextQuestion() {
          endGame();
          return;
       }
-      alert(`Level Complete! Moving to ${levels[levelIndex].title}`);
+      alert(`Level selesai! Sekarang masuk ke ${levels[levelIndex].title}`);
       startLevel();
       return;
    }
@@ -188,10 +225,10 @@ function checkAnswer() {
       levels[levelIndex].bands[currentIndex].answer.toLowerCase();
 
    if (userAnswer === correctAnswer) {
-      resultEl.textContent = "✅ Correct!";
+      resultEl.textContent = "✅ Benar!";
       score++;
    } else {
-      resultEl.textContent = `❌ Wrong! The correct answer was: ${levels[levelIndex].bands[currentIndex].answer}`;
+      resultEl.textContent = `❌ Salah! Jawabannya: ${levels[levelIndex].bands[currentIndex].answer}`;
    }
 
    scoreEl.textContent = "Score: " + score;
@@ -205,13 +242,13 @@ function checkAnswer() {
 
 function endGame() {
    stopTimer();
-   clueEl.textContent = `🎉 Game Over! Final Score: ${score}`;
+   clueEl.textContent = `🎉 Permainan selesai! Skor akhir: ${score}`;
    answerEl.disabled = true;
    submitBtn.disabled = true;
    nextBtn.textContent = "Restart";
 
    saveLeaderboard({ name: playerName, score, time: timer });
-   alert("Game Over! Your time has been saved to the leaderboard.");
+   alert("Game Over! Waktu dan skor kamu sudah disimpan di leaderboard.");
    showLeaderboard();
 }
 
@@ -219,8 +256,8 @@ function endGame() {
 function saveLeaderboard(entry) {
    const data = JSON.parse(localStorage.getItem("leaderboard")) || [];
    data.push(entry);
-   data.sort((a, b) => b.score - a.score || a.time - b.time); // sort by score, then time
-   localStorage.setItem("leaderboard", JSON.stringify(data.slice(0, 10))); // top 10
+   data.sort((a, b) => b.score - a.score || a.time - b.time);
+   localStorage.setItem("leaderboard", JSON.stringify(data.slice(0, 10)));
 }
 
 function renderLeaderboard() {
