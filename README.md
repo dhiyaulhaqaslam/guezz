@@ -23,7 +23,7 @@ LocalStorage API – Untuk menyimpan data leaderboard secara lokal di browser.
 
 🌟 Fitur Utama
 
-✅ Terdapat beberapa level dengan tingkat kesulitan meningkat (1990-an hingga 1980-an).
+✅ Terdapat beberapa level dengan tingkat kesulitan meningkat
 ✅ Timer real-time yang mencatat waktu permainan.
 ✅ Sistem skor otomatis dan level progression.
 ✅ Fitur submit jawaban menggunakan tombol Enter.
@@ -34,7 +34,7 @@ LocalStorage API – Untuk menyimpan data leaderboard secara lokal di browser.
 
 Klon repositori ini atau unduh file .zip.
 
-git clone https://github.com/username/guezz-the-band.git
+git clone https://github.com/dhiyaulhaqaslam/guezz
 
 Buka folder proyek:
 
@@ -49,20 +49,22 @@ localStorage.clear();
 
 🤖 Penjelasan Dukungan AI
 
-Proyek ini dikembangkan dengan bantuan IBM AI untuk:
+Proyek ini dikembangkan dengan bantuan:
 
-Menghasilkan data band klasik dan petunjuk untuk tiap level.
+ChatGPT
+- Membantu dalam proses perencanaan termasuk ide-ide yang diterapkan pada proyek
+- Memberikan saran dalam penyusunan struktur kode JavaScript agar efisien dan terorganisir.
 
-Membantu merancang tampilan antarmuka (UI/UX) agar lebih menarik dan mudah digunakan.
+IBM Granite
+- Membantu dalam proses perencanaan termasuk ide-ide yang diterapkan pada proyek
+- Menghasilkan data dan petunjuk untuk tiap level.
+- Membantu merancang tampilan antarmuka (UI/UX) agar lebih menarik dan mudah digunakan.
 
 AI digunakan sebagai asisten kreatif dan teknis, bukan untuk membuat seluruh proyek secara otomatis. Setiap kode tetap ditulis, diuji, dan disesuaikan secara manual oleh pengembang.
 
 🚀 Pengembangan Selanjutnya
 
-Menambahkan level tambahan (Dari Setiap Era).
-
-Menyertakan potongan lagu atau gambar band sebagai petunjuk tambahan.
-
-Membuat mode multiplayer.
-
-Menambahkan fitur dark/light mode untuk tampilan yang lebih dinamis.
+- Menambahkan level tambahan (Dari Setiap Era).
+- Menyertakan potongan lagu atau gambar band sebagai petunjuk tambahan.
+- Membuat mode multiplayer.
+- Menambahkan fitur dark/light mode untuk tampilan yang lebih dinamis.
