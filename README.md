@@ -51,10 +51,6 @@ localStorage.clear();
 
 Proyek ini dikembangkan dengan bantuan:
 
-ChatGPT
-- Membantu dalam proses perencanaan termasuk ide-ide yang diterapkan pada proyek
-- Memberikan saran dalam penyusunan struktur kode JavaScript agar efisien dan terorganisir.
-
 IBM Granite
 - Membantu dalam proses perencanaan termasuk ide-ide yang diterapkan pada proyek
 - Menghasilkan data dan petunjuk untuk tiap level.
