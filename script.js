@@ -104,6 +104,10 @@ const timerEl = document.createElement("p");
 timerEl.id = "timer";
 document.getElementById("game-box").appendChild(timerEl);
 
+const leaderboardEl = document.createElement("div");
+leaderboardEl.id = "leaderboard";
+document.body.appendChild(leaderboardEl);
+
 nextBtn.addEventListener("click", nextQuestion);
 submitBtn.addEventListener("click", checkAnswer);
 answerEl.addEventListener("keydown", (e) => {
@@ -114,7 +118,7 @@ function startLevel() {
    const currentLevel = levels[levelIndex];
    levelTitleEl.textContent = currentLevel.title;
    currentIndex = 0;
-   if (!startTime) startTimer(); // Start timer only once
+   if (!startTime) startTimer(); // Start timer once
    nextQuestion();
 }
 
@@ -143,13 +147,16 @@ function nextQuestion() {
       levelIndex++;
       if (levelIndex >= levels.length) {
          const totalTime = stopTimer();
+         const playerName = prompt("🎸 Enter your name for the leaderboard:");
+         if (playerName) saveToLeaderboard(playerName, score, totalTime);
+
          clueEl.textContent = `🎉 Game Over! Final Score: ${score} | 🕒 Time: ${totalTime}s`;
          answerEl.disabled = true;
          submitBtn.disabled = true;
          nextBtn.textContent = "Restart";
          nextBtn.disabled = false;
+         showLeaderboard();
 
-         // Reset everything when restarting
          nextBtn.onclick = function () {
             levelIndex = 0;
             score = 0;
@@ -197,4 +204,30 @@ function checkAnswer() {
       currentIndex >= levels[levelIndex].bands.length ? "Next Level" : "Next";
 }
 
+// 🏆 Leaderboard functions
+function saveToLeaderboard(name, score, time) {
+   const data = JSON.parse(localStorage.getItem("guezzLeaderboard")) || [];
+   data.push({ name, score, time });
+   data.sort((a, b) => a.time - b.time); // Sort by fastest time
+   if (data.length > 5) data.splice(5); // Keep top 5
+   localStorage.setItem("guezzLeaderboard", JSON.stringify(data));
+}
+
+function showLeaderboard() {
+   const data = JSON.parse(localStorage.getItem("guezzLeaderboard")) || [];
+   leaderboardEl.innerHTML = `
+      <h2>🏆 Leaderboard</h2>
+      <table border="1" cellpadding="5" style="border-collapse: collapse; color:white;">
+         <tr><th>Rank</th><th>Name</th><th>Score</th><th>Time (s)</th></tr>
+         ${data
+            .map(
+               (p, i) =>
+                  `<tr><td>${i + 1}</td><td>${p.name}</td><td>${p.score}</td><td>${p.time}</td></tr>`
+            )
+            .join("")}
+      </table>
+   `;
+}
+
 startLevel();
+showLeaderboard();
