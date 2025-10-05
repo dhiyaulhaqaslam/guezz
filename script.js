@@ -20,7 +20,7 @@ const levels = [
       title: "Level 2 - Medium (1980s)",
       bands: [
          {
-            clue: "This Irish band, fronted by Bono, is known for songs like 'With or Without You' and 'Sunday Bloody Sunday'.",
+            clue: "This Irish band, fronted by Bono, is known for 'With or Without You'.",
             answer: "U2",
          },
          {
@@ -34,53 +34,19 @@ const levels = [
       ],
    },
    {
-      title: "Level 3 - Hard (1970s)",
+      title: "Level 3 - Hard (2000s)",
       bands: [
          {
-            clue: "This British rock band is famous for 'Stairway to Heaven' and powerful guitar riffs by Jimmy Page.",
-            answer: "Led Zeppelin",
+            clue: "This American rock band fronted by Chris Martin gained worldwide fame with 'Yellow'.",
+            answer: "Coldplay",
          },
          {
-            clue: "This Australian hard rock band is known for 'Back in Black' and 'Highway to Hell'.",
-            answer: "AC/DC",
+            clue: "This pop-punk band from California made hits like 'All the Small Things'.",
+            answer: "Blink-182",
          },
          {
-            clue: "This British progressive rock band is behind 'Comfortably Numb' and 'Another Brick in the Wall'.",
-            answer: "Pink Floyd",
-         },
-      ],
-   },
-   {
-      title: "Level 4 - Very Hard (Late 1960s - 1970s)",
-      bands: [
-         {
-            clue: "This British band led by Freddie Mercury became legendary with 'Bohemian Rhapsody'.",
-            answer: "Queen",
-         },
-         {
-            clue: "Known for their hits 'Hotel California' and 'Take It Easy', this American band defined 70s soft rock.",
-            answer: "Eagles",
-         },
-         {
-            clue: "This British band, led by Roger Daltrey, became famous for 'Baba O'Riley' and smashing guitars on stage.",
-            answer: "The Who",
-         },
-      ],
-   },
-   {
-      title: "Level 5 - Expert (1960s)",
-      bands: [
-         {
-            clue: "This British band, featuring John, Paul, George, and Ringo, revolutionized popular music with hits like 'Hey Jude'.",
-            answer: "The Beatles",
-         },
-         {
-            clue: "This British rock band, fronted by Mick Jagger, became known for 'Paint It Black' and 'Satisfaction'.",
-            answer: "The Rolling Stones",
-         },
-         {
-            clue: "This American band, led by Jim Morrison, became known for their dark lyrics and songs like 'Light My Fire'.",
-            answer: "The Doors",
+            clue: "This American band won multiple Grammys for their debut album 'Hybrid Theory'.",
+            answer: "Linkin Park",
          },
       ],
    },
@@ -89,9 +55,19 @@ const levels = [
 let levelIndex = 0;
 let currentIndex = 0;
 let score = 0;
-let startTime;
-let endTime;
+let timer = 0;
 let timerInterval;
+let playerName = "";
+
+// Elements
+const lobby = document.getElementById("lobby");
+const gameBox = document.getElementById("game-box");
+const leaderboard = document.getElementById("leaderboard");
+const leaderboardList = document.getElementById("leaderboard-list");
+
+const startBtn = document.getElementById("start-btn");
+const showLeaderboardBtn = document.getElementById("show-leaderboard");
+const backBtn = document.getElementById("back-btn");
 
 const clueEl = document.getElementById("clue");
 const answerEl = document.getElementById("answer");
@@ -100,44 +76,86 @@ const nextBtn = document.getElementById("next-btn");
 const resultEl = document.getElementById("result");
 const scoreEl = document.getElementById("score");
 const levelTitleEl = document.getElementById("level-title");
-const timerEl = document.createElement("p");
-timerEl.id = "timer";
-document.getElementById("game-box").appendChild(timerEl);
+const timerEl = document.getElementById("timer");
 
-const leaderboardEl = document.createElement("div");
-leaderboardEl.id = "leaderboard";
-document.body.appendChild(leaderboardEl);
+// Lobby Events
+startBtn.addEventListener("click", () => {
+   const nameInput = document.getElementById("player-name").value.trim();
+   if (!nameInput) {
+      alert("Please enter your name first!");
+      return;
+   }
+   playerName = nameInput;
+   showGame();
+});
 
+showLeaderboardBtn.addEventListener("click", showLeaderboard);
+backBtn.addEventListener("click", showLobby);
+
+// Game Events
 nextBtn.addEventListener("click", nextQuestion);
 submitBtn.addEventListener("click", checkAnswer);
 answerEl.addEventListener("keydown", (e) => {
-   if (e.key === "Enter") checkAnswer();
+   if (
+      e.key === "Enter" &&
+      !submitBtn.disabled &&
+      answerEl.value.trim() !== ""
+   ) {
+      e.preventDefault();
+      checkAnswer();
+   }
 });
+
+// Timer
+function startTimer() {
+   timer = 0;
+   clearInterval(timerInterval);
+   timerInterval = setInterval(() => {
+      timer++;
+      timerEl.textContent = `Time: ${timer}s`;
+   }, 1000);
+}
+
+function stopTimer() {
+   clearInterval(timerInterval);
+}
+
+// Navigation
+function showLobby() {
+   leaderboard.style.display = "none";
+   gameBox.style.display = "none";
+   lobby.style.display = "block";
+}
+
+function showGame() {
+   lobby.style.display = "none";
+   leaderboard.style.display = "none";
+   gameBox.style.display = "block";
+   resetGame();
+}
+
+function showLeaderboard() {
+   lobby.style.display = "none";
+   gameBox.style.display = "none";
+   leaderboard.style.display = "block";
+   renderLeaderboard();
+}
+
+// Game logic
+function resetGame() {
+   levelIndex = 0;
+   currentIndex = 0;
+   score = 0;
+   scoreEl.textContent = "Score: 0";
+   startLevel();
+   startTimer();
+}
 
 function startLevel() {
    const currentLevel = levels[levelIndex];
    levelTitleEl.textContent = currentLevel.title;
    currentIndex = 0;
-   if (!startTime) startTimer(); // Start timer once
    nextQuestion();
-}
-
-function startTimer() {
-   startTime = new Date();
-   timerInterval = setInterval(updateTimer, 1000);
-}
-
-function updateTimer() {
-   const now = new Date();
-   const elapsed = Math.floor((now - startTime) / 1000);
-   timerEl.textContent = `⏱️ Time: ${elapsed}s`;
-}
-
-function stopTimer() {
-   clearInterval(timerInterval);
-   endTime = new Date();
-   const totalSeconds = Math.floor((endTime - startTime) / 1000);
-   return totalSeconds;
 }
 
 function nextQuestion() {
@@ -146,27 +164,7 @@ function nextQuestion() {
    if (currentIndex >= currentLevel.bands.length) {
       levelIndex++;
       if (levelIndex >= levels.length) {
-         const totalTime = stopTimer();
-         const playerName = prompt("🎸 Enter your name for the leaderboard:");
-         if (playerName) saveToLeaderboard(playerName, score, totalTime);
-
-         clueEl.textContent = `🎉 Game Over! Final Score: ${score} | 🕒 Time: ${totalTime}s`;
-         answerEl.disabled = true;
-         submitBtn.disabled = true;
-         nextBtn.textContent = "Restart";
-         nextBtn.disabled = false;
-         showLeaderboard();
-
-         nextBtn.onclick = function () {
-            levelIndex = 0;
-            score = 0;
-            startTime = null;
-            timerEl.textContent = "⏱️ Time: 0s";
-            scoreEl.textContent = "Score: 0";
-            nextBtn.textContent = "Next";
-            nextBtn.onclick = null;
-            startLevel();
-         };
+         endGame();
          return;
       }
       alert(`Level Complete! Moving to ${levels[levelIndex].title}`);
@@ -181,6 +179,7 @@ function nextQuestion() {
    nextBtn.disabled = true;
    answerEl.disabled = false;
    submitBtn.disabled = false;
+   answerEl.focus();
 }
 
 function checkAnswer() {
@@ -204,30 +203,37 @@ function checkAnswer() {
       currentIndex >= levels[levelIndex].bands.length ? "Next Level" : "Next";
 }
 
-// 🏆 Leaderboard functions
-function saveToLeaderboard(name, score, time) {
-   const data = JSON.parse(localStorage.getItem("guezzLeaderboard")) || [];
-   data.push({ name, score, time });
-   data.sort((a, b) => a.time - b.time); // Sort by fastest time
-   if (data.length > 5) data.splice(5); // Keep top 5
-   localStorage.setItem("guezzLeaderboard", JSON.stringify(data));
+function endGame() {
+   stopTimer();
+   clueEl.textContent = `🎉 Game Over! Final Score: ${score}`;
+   answerEl.disabled = true;
+   submitBtn.disabled = true;
+   nextBtn.textContent = "Restart";
+
+   saveLeaderboard({ name: playerName, score, time: timer });
+   alert("Game Over! Your time has been saved to the leaderboard.");
+   showLeaderboard();
 }
 
-function showLeaderboard() {
-   const data = JSON.parse(localStorage.getItem("guezzLeaderboard")) || [];
-   leaderboardEl.innerHTML = `
-      <h2>🏆 Leaderboard</h2>
-      <table border="1" cellpadding="5" style="border-collapse: collapse; color:white;">
-         <tr><th>Rank</th><th>Name</th><th>Score</th><th>Time (s)</th></tr>
-         ${data
-            .map(
-               (p, i) =>
-                  `<tr><td>${i + 1}</td><td>${p.name}</td><td>${p.score}</td><td>${p.time}</td></tr>`
-            )
-            .join("")}
-      </table>
-   `;
+// Leaderboard
+function saveLeaderboard(entry) {
+   const data = JSON.parse(localStorage.getItem("leaderboard")) || [];
+   data.push(entry);
+   data.sort((a, b) => b.score - a.score || a.time - b.time); // sort by score, then time
+   localStorage.setItem("leaderboard", JSON.stringify(data.slice(0, 10))); // top 10
 }
 
-startLevel();
-showLeaderboard();
+function renderLeaderboard() {
+   const data = JSON.parse(localStorage.getItem("leaderboard")) || [];
+   leaderboardList.innerHTML = "";
+   data.forEach((entry, index) => {
+      const li = document.createElement("li");
+      li.textContent = `${index + 1}. ${entry.name} — ${entry.score} pts (${
+         entry.time
+      }s)`;
+      leaderboardList.appendChild(li);
+   });
+}
+
+// Start
+showLobby();

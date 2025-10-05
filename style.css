@@ -5,33 +5,23 @@ body {
    text-align: center;
    margin: 0;
    padding: 0;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   height: 100vh;
 }
 
 .container {
    max-width: 400px;
-   margin: 80px auto;
    background: rgba(255, 255, 255, 0.1);
    padding: 30px;
    border-radius: 15px;
    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+   display: none;
 }
 
-h1 {
-   font-size: 2em;
-   letter-spacing: 2px;
-}
-
-.subtitle {
-   font-size: 0.9em;
-   margin-bottom: 20px;
-   opacity: 0.8;
-}
-
-#clue-box {
-   background: rgba(255, 255, 255, 0.2);
-   border-radius: 10px;
-   padding: 15px;
-   margin-bottom: 15px;
+h1 span {
+   color: #00adb5;
 }
 
 input {
@@ -39,22 +29,23 @@ input {
    padding: 10px;
    border: none;
    border-radius: 10px;
-   margin-bottom: 10px;
+   margin: 10px 0;
 }
 
 button {
-   background-color: #ffce00;
-   color: black;
+   background-color: #00adb5;
+   color: white;
    font-weight: bold;
    padding: 10px 15px;
    border: none;
    border-radius: 8px;
    margin: 5px;
    cursor: pointer;
+   transition: 0.3s;
 }
 
 button:hover {
-   background-color: #ffd84d;
+   background-color: #007b83;
 }
 
 #result {
@@ -62,7 +53,8 @@ button:hover {
    margin-top: 15px;
 }
 
-#score {
+#score,
+#timer {
    margin-top: 10px;
    font-size: 1.1em;
 }
