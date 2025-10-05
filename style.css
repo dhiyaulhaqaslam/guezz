@@ -1,0 +1,68 @@
+body {
+   background: linear-gradient(135deg, #2b5876, #4e4376);
+   color: white;
+   font-family: "Poppins", sans-serif;
+   text-align: center;
+   margin: 0;
+   padding: 0;
+}
+
+.container {
+   max-width: 400px;
+   margin: 80px auto;
+   background: rgba(255, 255, 255, 0.1);
+   padding: 30px;
+   border-radius: 15px;
+   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+   font-size: 2em;
+   letter-spacing: 2px;
+}
+
+.subtitle {
+   font-size: 0.9em;
+   margin-bottom: 20px;
+   opacity: 0.8;
+}
+
+#clue-box {
+   background: rgba(255, 255, 255, 0.2);
+   border-radius: 10px;
+   padding: 15px;
+   margin-bottom: 15px;
+}
+
+input {
+   width: 80%;
+   padding: 10px;
+   border: none;
+   border-radius: 10px;
+   margin-bottom: 10px;
+}
+
+button {
+   background-color: #ffce00;
+   color: black;
+   font-weight: bold;
+   padding: 10px 15px;
+   border: none;
+   border-radius: 8px;
+   margin: 5px;
+   cursor: pointer;
+}
+
+button:hover {
+   background-color: #ffd84d;
+}
+
+#result {
+   font-weight: bold;
+   margin-top: 15px;
+}
+
+#score {
+   margin-top: 10px;
+   font-size: 1.1em;
+}
