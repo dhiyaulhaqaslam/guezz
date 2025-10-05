@@ -89,6 +89,9 @@ const levels = [
 let levelIndex = 0;
 let currentIndex = 0;
 let score = 0;
+let startTime;
+let endTime;
+let timerInterval;
 
 const clueEl = document.getElementById("clue");
 const answerEl = document.getElementById("answer");
@@ -97,49 +100,69 @@ const nextBtn = document.getElementById("next-btn");
 const resultEl = document.getElementById("result");
 const scoreEl = document.getElementById("score");
 const levelTitleEl = document.getElementById("level-title");
+const timerEl = document.createElement("p");
+timerEl.id = "timer";
+document.getElementById("game-box").appendChild(timerEl);
 
 nextBtn.addEventListener("click", nextQuestion);
 submitBtn.addEventListener("click", checkAnswer);
-
-// 🔹 NEW FEATURE: tekan Enter untuk submit jawaban
 answerEl.addEventListener("keydown", (e) => {
-   if (e.key === "Enter" && !submitBtn.disabled) {
-      e.preventDefault();
-      checkAnswer();
-   }
+   if (e.key === "Enter") checkAnswer();
 });
 
 function startLevel() {
    const currentLevel = levels[levelIndex];
    levelTitleEl.textContent = currentLevel.title;
    currentIndex = 0;
+   if (!startTime) startTimer(); // Start timer only once
    nextQuestion();
+}
+
+function startTimer() {
+   startTime = new Date();
+   timerInterval = setInterval(updateTimer, 1000);
+}
+
+function updateTimer() {
+   const now = new Date();
+   const elapsed = Math.floor((now - startTime) / 1000);
+   timerEl.textContent = `⏱️ Time: ${elapsed}s`;
+}
+
+function stopTimer() {
+   clearInterval(timerInterval);
+   endTime = new Date();
+   const totalSeconds = Math.floor((endTime - startTime) / 1000);
+   return totalSeconds;
 }
 
 function nextQuestion() {
    const currentLevel = levels[levelIndex];
 
-   // Jika tombol restart ditekan
-   if (nextBtn.textContent === "Restart") {
-      nextBtn.textContent = "Next";
-      levelIndex = 0;
-      score = 0;
-      scoreEl.textContent = "Score: 0";
-      startLevel();
-      return;
-   }
-
-   // Cek apakah semua pertanyaan di level selesai
    if (currentIndex >= currentLevel.bands.length) {
       levelIndex++;
       if (levelIndex >= levels.length) {
-         clueEl.textContent = `🎉 Game Over! Final Score: ${score}`;
+         const totalTime = stopTimer();
+         clueEl.textContent = `🎉 Game Over! Final Score: ${score} | 🕒 Time: ${totalTime}s`;
          answerEl.disabled = true;
          submitBtn.disabled = true;
          nextBtn.textContent = "Restart";
+         nextBtn.disabled = false;
+
+         // Reset everything when restarting
+         nextBtn.onclick = function () {
+            levelIndex = 0;
+            score = 0;
+            startTime = null;
+            timerEl.textContent = "⏱️ Time: 0s";
+            scoreEl.textContent = "Score: 0";
+            nextBtn.textContent = "Next";
+            nextBtn.onclick = null;
+            startLevel();
+         };
          return;
       }
-      alert(`✅ Level Complete! Moving to ${levels[levelIndex].title}`);
+      alert(`Level Complete! Moving to ${levels[levelIndex].title}`);
       startLevel();
       return;
    }
