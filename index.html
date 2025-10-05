@@ -3,22 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guezz - Guess the Band</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Guezz - Guess The Band!</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #232526, #414345);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        #game-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        input {
+            padding: 8px;
+            border-radius: 10px;
+            border: none;
+            margin-top: 10px;
+            text-align: center;
+            width: 80%;
+        }
+
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            background-color: #00adb5;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #007b83;
+        }
+
+        #result {
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🎵 GUEZZ 🎵</h1>
-        <p class="subtitle">Can you guess the band from the clue?</p>
-
-        <div id="clue-box">
-            <p id="clue">Press "Start" to begin!</p>
+    <div id="game-box">
+        <h1>🎸 Guezz: Guess The Band!</h1>
+        <h3 id="level-title">Level 1 - Easy</h3>
+        <p id="clue"></p>
+        <input type="text" id="answer" placeholder="Type your answer here..." />
+        <div>
+            <button id="submit-btn">Submit</button>
+            <button id="next-btn">Next</button>
         </div>
-
-        <input type="text" id="answer" placeholder="Type your answer here..." disabled>
-        <button id="submit-btn" disabled>Submit</button>
-        <button id="next-btn">Start</button>
-
         <p id="result"></p>
         <p id="score">Score: 0</p>
     </div>
