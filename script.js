@@ -225,10 +225,10 @@ function checkAnswer() {
       levels[levelIndex].bands[currentIndex].answer.toLowerCase();
 
    if (userAnswer === correctAnswer) {
-      resultEl.textContent = "✅ Benar!";
+      resultEl.textContent = "✅ Correct!";
       score++;
    } else {
-      resultEl.textContent = `❌ Salah! Jawabannya: ${levels[levelIndex].bands[currentIndex].answer}`;
+      resultEl.textContent = `❌ Wrong Answer!: ${levels[levelIndex].bands[currentIndex].answer}`;
    }
 
    scoreEl.textContent = "Score: " + score;
